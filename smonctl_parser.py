@@ -12,6 +12,7 @@ for i in smonctl_output:
    name = i['name'].lower()
    descr = i['description']
    state = i['state']
+   type = i['type']
 
    if i['state'] == "OK":
       value = 1
@@ -20,6 +21,6 @@ for i in smonctl_output:
    elif i['state'] == "BAD":
       value == 0
 
-   print("# HELP smon_%s %s" % (name, descr))
-   print("# TYPE smon_%s gauge" % name)
-   print("smon_%s %s" % (name,value))
+   print("# HELP smon_%s %s" % (type, descr))
+   print("# TYPE smon_%s gauge" % type)
+   print("smon_%s{name='%s'} %s" % (type,name,value))
