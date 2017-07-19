@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-import os
-import re
 import json
 import subprocess
 
@@ -21,6 +19,6 @@ for i in smonctl_output:
     elif i['state'] == "BAD":
        value == 0
 
-    print("# HELP smon_%s %s" % (metric_type, descr))
+    print("# HELP smon_%s %s (-1=ABSENT, 0=BAD, 1=OK)" % (metric_type, descr))
     print("# TYPE smon_%s gauge" % metric_type)
     print('smon_%s{name="%s"} %s' % (metric_type,name,value))
