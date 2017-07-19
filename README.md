@@ -1,6 +1,13 @@
-#### Intro
+## Intro
 
 Parses the output of smontctl into Prometheus test-file format
+
+The following states are translated this way into integers:
+
+* OK = 1
+* ABSENT = -1
+* BAD = 0
+
 
 ```console
   cumulus:~$ python smon_exporter.py
@@ -81,6 +88,6 @@ Parses the output of smontctl into Prometheus test-file format
   smon_temp7 1
 ```
 
-#### Usage
+## Usage
 
 `$ smonctl_parser.py`
