@@ -6,19 +6,29 @@ import subprocess
 proc = subprocess.Popen(['/usr/sbin/smonctl', '-j'], stdout=subprocess.PIPE)
 smonctl_output = json.loads(proc.stdout.read())
 
+metrics = {}
+
 for i in smonctl_output:
+
+    if i['type'] not in metrics:
+        metrics[i['type']] = []
+
     name = i['name'].lower()
     descr = i['description']
     state = i['state']
-    metric_type = i['type']
 
-    if i['state'] == "OK":
-       value = 1
-    elif i['state'] == "ABSENT":
-       value == -1
-    elif i['state'] == "BAD":
-       value == 0
+    metrics[i['type']].append([name, descr, state])
 
-    print("# HELP smon_%s %s (-1=ABSENT, 0=BAD, 1=OK)" % (metric_type, descr))
-    print("# TYPE smon_%s gauge" % metric_type)
-    print('smon_%s{name="%s"} %s' % (metric_type,name,value))
+for k in metrics:
+    for v in metrics[k]:
+
+        if v[2] == "OK":
+            value = 1
+        elif v[2] == "ABSENT":
+            value == -1
+        elif v[2] == "BAD":
+            value == 0
+
+        print("# HELP smon_%s %s (-1=ABSENT, 0=BAD, 1=OK)" % (k, v[1]))
+        print("# TYPE smon_%s gauge" % k)
+        print('smon_%s{name="%s"} %s' % (k,v[0],value))
