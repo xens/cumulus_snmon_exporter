@@ -20,6 +20,10 @@ for i in smonctl_output:
     metrics[i['type']].append([name, descr, state])
 
 for k in metrics:
+
+    print("# HELP smon_%s (-1=ABSENT, 0=BAD, 1=OK)" % (k))
+    print("# TYPE smon_%s gauge" % k)
+
     for v in metrics[k]:
 
         if v[2] == "OK":
@@ -29,6 +33,4 @@ for k in metrics:
         elif v[2] == "BAD":
             value == 0
 
-        print("# HELP smon_%s %s (-1=ABSENT, 0=BAD, 1=OK)" % (k, v[1]))
-        print("# TYPE smon_%s gauge" % k)
         print('smon_%s{name="%s"} %s' % (k,v[0],value))
