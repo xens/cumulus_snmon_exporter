@@ -11,7 +11,7 @@ The following states are translated this way into integers:
 
 
 ```console
-  cumulus:~$ python smon_exporter.py
+  cumulus:~$ python smonctl_parser.py
   # HELP smon_fan (-1=ABSENT, 0=BAD, 1=OK)
   # TYPE smon_fan gauge
   smon_fan{name="fan1",description="Fan Tray 1"} 1
