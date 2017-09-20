@@ -21,9 +21,9 @@ for kind, metric in metrics.items():
 
     for record in metric:
         if record['state'] == "ABSENT":
-            value == -1
+            value = -1
         elif record['state'] == "BAD":
-            value == 0
+            value = 0
         elif record['state'] == "OK":
             value = 1
 
